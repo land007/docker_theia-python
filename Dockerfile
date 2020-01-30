@@ -2,7 +2,7 @@ FROM theiaide/theia-python:latest
 
 MAINTAINER Yiqiu Jia <yiqiujia@hotmail.com>
 
-#USER root
+USER root
 #RUN npm install socket.io ws express http-proxy bagpipe chokidar request nodemailer await-signal log4js moment
 RUN mkdir /home/theia/agent && \
 	cd /home/theia/agent && npm init -y && npm install http-proxy basic-auth
@@ -31,7 +31,7 @@ RUN echo 'nohup node /home/theia/agent/proxy.js > /tmp/proxy.out &' >> /start.sh
 #	echo 'node /home/theia/src-gen/backend/main.js /home/project --hostname=0.0.0.0 --startup-timeout=-1 --inspect=0.0.0.0:9229' >> /start.sh
 	echo 'yarn theia start /home/project --hostname=0.0.0.0' >> /start.sh
 
-#USER theia
+USER theia
 CMD /task.sh ; /start.sh ; bash
 
 #docker build -t land007/theia-python:latest .
