@@ -11,9 +11,9 @@ ENV username=land007
 ENV password=fcea920f7412b5da7be0cf42b8c93759
 EXPOSE 5050
 
-RUN apk add --no-cache subversion screen util-linux curl && \
-	apk add --virtual build-dependencies build-base && \
-	rm -rf /var/cache/apk/* && \
+RUN apt-get update && apt-get upgrade -y && \
+	apt-get install -y net-tools iputils-ping vim curl wget unzip screen openssh-server git subversion locales software-properties-common lsof nmon iftop sysstat netcat-traditional pciutils kmod uuid-runtime && \
+	apt-get clean && \
 	npm install -g node-gyp supervisor && cd / && npm init -y && npm install socket.io ws express http-proxy bagpipe chokidar request nodemailer await-signal log4js moment && \
 	chown -R theia:theia /node_modules && chown -R theia:theia /usr/local/lib/node_modules && chown -R theia:theia /home/theia/.npm && chown -R theia:theia /usr/local/bin/
 ADD *.sh /
